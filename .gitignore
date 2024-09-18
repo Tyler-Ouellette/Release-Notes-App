@@ -2,6 +2,10 @@
 .dt-app/*
 !/.dt-app/deployment.json
 
+/node_modules
+/.dt-app/logs
+/.dt-app/type-checker
+
 # Compiled output
 /dist
 /build
