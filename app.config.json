@@ -1,0 +1,10 @@
+{
+  "environmentUrl": "https://joh43990.sprint.apps.dynatracelabs.com/",
+  "app": {
+    "name": "release-notes",
+    "version": "0.0.0",
+    "description": "A starting project with routing, fetching data, and charting",
+    "id": "my.release.notes",
+    "scopes": [{ "name": "storage:logs:read", "comment": "default template" }, { "name": "storage:buckets:read", "comment": "default template" }]
+  }
+}
