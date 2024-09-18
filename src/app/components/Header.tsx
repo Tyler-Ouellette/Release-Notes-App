@@ -7,12 +7,18 @@ export const Header = () => {
     <AppHeader>
       <AppHeader.NavItems>
         <AppHeader.AppNavLink as={Link} to="/" />
-        <AppHeader.NavItem as={Link} to="/data">
-          Explore Data
-        </AppHeader.NavItem>
-        <AppHeader.NavItem as={Link} to="/releases">
+        <AppHeader.NavItem as={Link} to="/saas">
           Releases
         </AppHeader.NavItem>
+        <AppHeader.NavItem as={Link} to="/oneagent">
+          OneAgent
+        </AppHeader.NavItem>
+        <AppHeader.NavItem as={Link} to="/activegate">
+          ActiveGate
+        </AppHeader.NavItem>
+        {/* <AppHeader.NavItem as={Link} to="/dynatrace-operator">
+          Dynatrace Operator
+        </AppHeader.NavItem> */}
       </AppHeader.NavItems>
     </AppHeader>
   );

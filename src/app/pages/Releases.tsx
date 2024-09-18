@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { useAppFunction } from '@dynatrace-sdk/react-hooks';
 import { Button, Flex, ProgressCircle } from '@dynatrace/strato-components';
 import { functions } from "@dynatrace-sdk/app-utils";
-import { version } from 'os';
 import { Page, TitleBar } from '@dynatrace/strato-components-preview';
-import { SettingIcon } from '@dynatrace/strato-icons';
+import { useLocation } from 'react-router';
 
 
 export const Releases = () => {
@@ -17,16 +15,23 @@ export const Releases = () => {
   for (let i = 0; i < length; i++) {
     array[i] = start + i;
   }
+  
+  const location = useLocation();
+  const trimmed = location.pathname.toString().substring(1);
 
-  const [html, setHtml] = useState('')
-  const [selectedVersion, setSelectedVersion] = useState('');
+  const [html, setHtml] = useState('saas')
+  const [selectedVersion, setSelectedVersion] = useState('300');
+  const [type, setSelectedType] = useState(trimmed)
 
   const [isDetailViewDismissed, setIsDetailViewDismissed] =
     useState<boolean>(false);
   const [isSidebarDismissed, setIsSidebarDismissed] = useState<boolean>(false);
 
   const getReleases = async () => {
-    const releases = await functions.call('get-releases', { data: selectedVersion });
+
+    const currentLocation = location.pathname.toString().substring(1);
+
+    const releases = await functions.call('get-releases', { data: {type: currentLocation, version: selectedVersion} });
     const text = await releases.text();
     setHtml(text);
 
@@ -46,7 +51,10 @@ export const Releases = () => {
 
 
   // console.log(html);
-  getReleases();
+
+  useEffect(() => {
+    getReleases();
+  }, [selectedVersion, location])
 
 
   const handleChange = (e) => {
