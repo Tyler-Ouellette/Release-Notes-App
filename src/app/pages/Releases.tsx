@@ -22,6 +22,7 @@ export const Releases = () => {
   const [html, setHtml] = useState('saas')
   const [selectedVersion, setSelectedVersion] = useState('300');
   const [type, setSelectedType] = useState(trimmed)
+  const [versionList, setVersionList] = useState<number[]>([])
 
   const [isDetailViewDismissed, setIsDetailViewDismissed] =
     useState<boolean>(false);
@@ -29,7 +30,12 @@ export const Releases = () => {
 
   const getReleases = async () => {
 
-    const currentLocation = location.pathname.toString().substring(1);
+    let currentLocation = location.pathname.toString().substring(1);
+    setSelectedType(currentLocation);
+
+    if (location.pathname.toString() == "/"){
+      currentLocation = "saas"
+    }; 
 
     const releases = await functions.call('get-releases', { data: {type: currentLocation, version: selectedVersion} });
     const text = await releases.text();
@@ -72,7 +78,12 @@ export const Releases = () => {
               Releases
             </TitleBar.Title>
           </TitleBar>
-          {array.sort((a, b) => b - a).map((version) => (
+          {array.filter(num => {
+              if (trimmed == "oneagent" || trimmed == "activegate"){
+                return num % 2 !== 0;
+              }
+              return num;
+          }).sort((a, b) => b - a).map((version) => (
             <Button key={version} onClick={handleChange} width={'100%'}>
               <div>{version}</div>
             </Button>
